@@ -1,13 +1,45 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@property --gradient-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@keyframes rotation {
+  from {
+    --gradient-angle: 0deg;
+  }
+  to {
+    --gradient-angle: 360deg;
+  }
+}
+
+.spinner {
+  height: 10vh;
+  aspect-ratio: 2/2;
+  border-radius: 50%;
+  background: #1d232a;
+  position: relative;
+}
+
+.spinner::before,
+.spinner::after {
+  content: '';
+  position: absolute;
+  inset: -0.3rem;
+  border-radius: inherit;
+  background: conic-gradient(from var(--gradient-angle), #1d232a, #fff);
+  z-index: -1;
+  animation: rotation 500ms linear infinite;
+}
+
+.spinner::after {
+  filter: blur(0.5rem);
+}
+
+.news-container {
+  margin-bottom: 100px;
 }
